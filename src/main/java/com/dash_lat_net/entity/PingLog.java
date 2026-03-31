@@ -1,31 +1,38 @@
 package com.dash_lat_net.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "ping_log")
+@Table(name = "ping_logs")
 public class PingLog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Getters e Setters (Essenciais)...
+    @Getter
     private String host;
-    private Boolean reachable;
+    @Getter
+    private boolean reachable;
+    @Getter
     private Long latency;
 
+    @Getter
     @Column(name = "data_registro")
-    private LocalDate dataRegistro; // Para agrupar por dia (e contar os 30 dias ativos)
+    private LocalDate dataRegistro;
 
+    @Getter
     @Column(name = "hora_registro")
-    private LocalTime horaRegistro; // A hora exata do ping
+    private LocalTime horaRegistro;
 
-    // Construtor vazio obrigatório do JPA
     public PingLog() {}
 
-    public PingLog(String host, Boolean reachable, Long latency) {
+    // Verifique se o seu construtor está exatamente assim:
+    public PingLog(String host, boolean reachable, Long latency) {
         this.host = host;
         this.reachable = reachable;
         this.latency = latency;
@@ -33,5 +40,4 @@ public class PingLog {
         this.horaRegistro = LocalTime.now();
     }
 
-    // Gere os Getters e Setters aqui (ou use @Data se tiver o Lombok)
 }

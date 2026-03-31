@@ -2,27 +2,29 @@ package com.dash_lat_net.repository;
 
 import com.dash_lat_net.entity.PingLog;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Repository
 public interface PingLogRepository extends JpaRepository<PingLog, Long> {
 
-    // Conta quantos registros já foram salvos em uma data específica
+    // Conta quantos registros existem no dia
     long countByDataRegistro(LocalDate dataRegistro);
 
-    // Traz uma lista das datas que o sistema efetivamente rodou, da mais nova para a mais velha
+    // Remove todos os registros de um dia específico
+    void deleteByDataRegistro(LocalDate dataRegistro);
+
+    // Retorna os dias distintos com registros (ordenado do mais recente)
     @Query("SELECT DISTINCT p.dataRegistro FROM PingLog p ORDER BY p.dataRegistro DESC")
     List<LocalDate> findDiasAtivos();
 
-    // Apaga todos os registros de uma data específica
-    @Modifying
-    @Transactional
-    @Query("DELETE FROM PingLog p WHERE p.dataRegistro = :data")
-    void deleteByDataRegistro(LocalDate data);
+    // Últimos 100 registros (para dashboard)
+    List<PingLog> findTop100ByOrderByIdDesc();
+
+    // Histórico por host (opcional, mas MUITO útil pro gráfico)
+    List<PingLog> findByHostOrderByIdDesc(String host);
+
+    // Últimos registros de um host específico (limite)
+    List<PingLog> findTop50ByHostOrderByIdDesc(String host);
 }
