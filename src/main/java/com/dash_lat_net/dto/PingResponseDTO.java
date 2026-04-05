@@ -1,9 +1,13 @@
 package com.dash_lat_net.dto;
 
+import lombok.Getter;
+
+@Getter
 public class PingResponseDTO {
-    private String host;
-    private boolean reachable;
-    private Long latency;
+    // Getters e Setters (Essenciais para o JSON)
+    private final String host;
+    private final boolean reachable;
+    private final Long latency;
     private String data_registro;
     private String hora_registro;
 
@@ -23,10 +27,4 @@ public class PingResponseDTO {
         this.latency = latency;
     }
 
-    // Getters e Setters (Essenciais para o JSON)
-    public String getHost() { return host; }
-    public boolean isReachable() { return reachable; }
-    public Long getLatency() { return latency; }
-    public String getData_registro() { return data_registro; }
-    public String getHora_registro() { return hora_registro; }
 }

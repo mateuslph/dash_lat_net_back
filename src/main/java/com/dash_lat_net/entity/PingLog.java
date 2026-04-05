@@ -31,7 +31,6 @@ public class PingLog {
 
     public PingLog() {}
 
-    // Verifique se o seu construtor está exatamente assim:
     public PingLog(String host, boolean reachable, Long latency) {
         this.host = host;
         this.reachable = reachable;

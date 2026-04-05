@@ -42,6 +42,10 @@ public class PingService {
                 .collect(Collectors.toList());
     }
 
+    public List<String> getHosts() {
+        return properties.getHosts();
+    }
+
     /**
      * Executa o Ping utilizando o endereço vindo da Entity e SALVA no banco
      */
